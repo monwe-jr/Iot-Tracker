@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  web_api:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      - REDIS_HOST=redis_cache
+      - POSTGRES_HOST=postgres_db
+      - POSTGRES_DB=telemetry_db
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=secure_password123
+    depends_on:
+      - redis_cache
+      - postgres_db
+
+  redis_cache:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+
+  postgres_db:
+    image: postgres:15-alpine
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_DB=telemetry_db
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=secure_password123
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:
