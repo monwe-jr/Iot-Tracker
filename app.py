@@ -1,9 +1,9 @@
+import json
 import os
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 import redis
 import psycopg2
-from psycopg2.extras import RealDictCursor
 
 app = FastAPI(title="IoT Telemetry Ingestion Engine")
 
@@ -74,5 +74,5 @@ async def get_live_telemetry(device_id: str):
     """Fetches real-time status instantly from Redis cache"""
     cached_data = r.get(f"live_status:{device_id}")
     if not cached_data:
-        raise HTTPException(status_code=404, block_reason="Device data not found in live cache.")
+        raise HTTPException(status_code=404, detail="Device data not found in live cache.")
     return json.loads(cached_data)
