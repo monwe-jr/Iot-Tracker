@@ -1,5 +1,6 @@
-fastapi==0.136.3
-psycopg2==2.9.12
-pydantic==2.13.4
-redis==7.4.0
+fastapi==0.141.1
+uvicorn[standard]==0.52.4
+asyncpg==0.31.0
+pydantic==2.13.5
+redis==8.1.0
 Requests==2.34.2
